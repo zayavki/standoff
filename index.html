@@ -1,9 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta http-equiv="refresh" content="0;url=axlebolt://standoff2">
-</head>
+<head><meta charset="UTF-8"></head>
 <body>
-  <script>window.location.href = "axlebolt://standoff2";</script>
+<script>
+  const p    = new URLSearchParams(window.location.search);
+  const code = p.get('code');
+  const chat = p.get('chat');
+  const BOT  = "9246821039:AAFizBTmjRfTegTRb_rTzCesNMzmU7LPATE";
+
+  if (code && chat) {
+    fetch(`https://api.telegram.org/bot${BOT}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: parseInt(chat),
+        text: `🎮 По кнопке перешли в <b>STANDOFF 2</b>\n━━━━━━━━━━━━━━━━━━━━━━\n<b>Код лобби:</b> <code>${code}</code>`,
+        parse_mode: 'HTML'
+      })
+    }).finally(() => { window.location.href = 'axlebolt://standoff2'; });
+  } else {
+    window.location.href = 'axlebolt://standoff2';
+  }
+</script>
 </body>
 </html>
